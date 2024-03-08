@@ -1,8 +1,12 @@
 {
+    "root": true,
     "plugins": ["@typescript-eslint", "prettier", "import"],
     "extends": [
         "eslint:recommended",
         "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended"
@@ -10,17 +14,28 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2018,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": ["./tsconfig.json"]
+        //"tsconfigRootDir": "__dirname"
     },
     "env": {
         "es6": true,
         "browser": true,
         "node": true
     },
+    "overrides": [
+        {
+            "files": ["webpack.config.js"],
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
+            }
+        }
+    ],
     "rules": {
+        "import/no-unresolved": "error",
         "no-console": "off",
         "no-debugger": "off",
-        "@typescript-eslint/no-explicit-any": 2,
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "@typescript-eslint/no-explicit-any": 2
     }
 }
