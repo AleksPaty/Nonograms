@@ -36,6 +36,7 @@
         "no-console": "off",
         "no-debugger": "off",
         "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
         "@typescript-eslint/no-explicit-any": 2
     }
 }
