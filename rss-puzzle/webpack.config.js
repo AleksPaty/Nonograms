@@ -9,6 +9,7 @@ module.exports = (env) => {
         output: {
             filename: 'index.js',
             path: path.resolve(__dirname, 'build'),
+            assetModuleFilename: 'assets/[name][ext]'
         },
         module: {
             rules: [
@@ -27,6 +28,10 @@ module.exports = (env) => {
                         // Compiles Sass to CSS
                         'sass-loader',
                     ],
+                },
+                {
+                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                    type: 'asset/resource',
                 },
             ],
         },

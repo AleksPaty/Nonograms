@@ -14,7 +14,11 @@ export class StartPage {
     }
 
     private buildStartImg(): void {
-        ElemConstruct('img', 'start-page__img', undefined, this.startElem, [{ src: `${bgImage}` }, { alt: 'image' }]);
+        if (!bgImage) return;
+        ElemConstruct('img', 'start-page__img', undefined, this.startElem, [
+            { src: './assets/bgImage.png' },
+            { alt: 'image' },
+        ]);
     }
 
     public render(): HTMLElement {

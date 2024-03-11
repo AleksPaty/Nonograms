@@ -22,10 +22,13 @@ export class LoginForm {
 
         this.valueInputs.forEach((input, i) => {
             const wrapper = ElemConstruct('div', 'login__body_wrap');
+            const regex = i === 0 ? '^[A-Z][a-z\\-]{2,}' : '^[A-Z][a-z\\-]{3,}'; //eslint-disable-line
 
             ElemConstruct('input', 'login__body_input', undefined, wrapper, [
                 { type: input },
                 { placeholder: i === 0 ? 'First Name' : 'Surname' },
+                { pattern: `${regex}` },
+                { title: `The first letter must be capitalized. Use Latin letters and (-). Min length: ${i ? 4 : 3}` },
                 { required: '' },
             ]);
 
