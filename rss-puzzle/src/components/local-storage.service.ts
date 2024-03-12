@@ -1,17 +1,14 @@
-interface UserStorage {
-    firstName: string;
-    surname: string;
-}
+import { UserStorage } from '../types/usedInterface';
 
 export class StorageService {
-    private storageKey: string;
+    public storageKey: string = 'user';
 
-    constructor() {
-        this.storageKey = 'user';
+    constructor(storageKey: string | undefined = undefined) {
+        if (storageKey) this.storageKey = storageKey;
     }
 
-    public saveData(data: UserStorage): void {
-        localStorage.setItem(this.storageKey, JSON.stringify(data));
+    public saveData(key: string, data: UserStorage): void {
+        localStorage.setItem(key, JSON.stringify(data));
     }
 
     public getData(): UserStorage | null {
@@ -19,5 +16,9 @@ export class StorageService {
         const result: UserStorage | null = data ? JSON.parse(data) : null;
 
         return result;
+    }
+
+    public removeData(key: string): void {
+        localStorage.removeItem(key);
     }
 }

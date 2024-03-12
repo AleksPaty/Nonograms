@@ -1,3 +1,4 @@
+import { UserStorage } from '../../types/usedInterface';
 import { ElemConstruct } from '../elemConstruct';
 
 export class LoginForm {
@@ -9,10 +10,21 @@ export class LoginForm {
         this.amountBtn = amountBtn;
     }
 
-    private buildForm(): HTMLElement {
+    private buildForm(callBack: (data: UserStorage) => void): HTMLElement {
         const formElem = ElemConstruct('form', 'login__form', undefined, undefined, [{ action: '' }]);
-
         ElemConstruct('h2', 'login__title', 'Login', formElem);
+
+        formElem.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const [firstName, surname] = formElem.querySelectorAll('input');
+            const user: UserStorage = {
+                firstName: firstName.value,
+                surname: surname.value,
+            };
+
+            this.removeForm(formElem);
+            callBack(user);
+        });
         return formElem;
     }
 
@@ -48,8 +60,12 @@ export class LoginForm {
         return fragment;
     }
 
-    public render(parent: HTMLElement | Element): void {
-        const form = this.buildForm();
+    private removeForm(form: HTMLElement): void {
+        form.remove();
+    }
+
+    public render(parent: HTMLElement | Element, callBack: (data: UserStorage) => void): void {
+        const form = this.buildForm(callBack);
         const loginBody = this.buildInputs();
         const fragmentBtns = this.buildButton();
 
