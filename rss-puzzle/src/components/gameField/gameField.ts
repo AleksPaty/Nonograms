@@ -61,6 +61,8 @@ export class GameField {
             const rightWord = this.wordData?.baseWordsArr[i];
 
             if (wordElem?.innerHTML !== rightWord) {
+                wordElem?.classList.add('wrong');
+                setTimeout(() => wordElem?.classList.remove('wrong'), 1000);
                 return;
             }
         }
