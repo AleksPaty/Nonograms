@@ -21,7 +21,15 @@ interface WordData {
     wordTranslate: string;
 }
 
-interface RoundWords {
+export interface CustomWordData {
+    audioExample: string;
+    baseWordsArr: string[];
+    mixedWordsArr: string[];
+    sentenceLength: number;
+    translateSentence: string;
+}
+
+export interface RoundWords {
     levelData: LevelData;
     words: WordData[];
 }

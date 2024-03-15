@@ -1,8 +1,8 @@
-import { ElemConstruct } from '../components/elemConstruct';
-import { LoginForm } from '../components/form/loginForms';
-import bgImage from '../assets/img/bgImage.png';
-import { StorageService } from '../components/local-storage.service';
-import { UserStorage } from '../types/usedInterface';
+import { ElemConstruct } from '../../components/elemConstruct';
+import { LoginForm } from '../../components/form/loginForms';
+import { StorageService } from '../../components/local-storage.service';
+import { UserStorage } from '../../types/usedInterface';
+import bgImage from '../../assets/img/bgImage.png';
 
 export class StartPage {
     startElem: HTMLElement;
