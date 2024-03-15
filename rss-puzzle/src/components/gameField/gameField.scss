@@ -19,7 +19,7 @@
                 padding: 7px 10px;
                 text-align: center;
                 box-shadow: inset 0px 1px 1px 0px red;
-                text-shadow:  1px 1px 2px pink;;
+                text-shadow: 1px 1px 2px pink;
                 background-color: aquamarine;
                 cursor: pointer;
             }
@@ -37,8 +37,8 @@
             padding: 7px 10px;
             text-align: center;
             box-shadow: inset 0px 1px 1px 0px red;
-            text-shadow:  1px 1px 2px pink;
-            background-color: #B5CFC4;
+            text-shadow: 1px 1px 2px pink;
+            background-color: #b5cfc4;
             cursor: pointer;
 
             &:hover {
@@ -51,7 +51,7 @@
         display: block;
         margin: 0 auto;
         padding: 6px 10px;
-        background-color: #F77342;
+        background-color: #f77342;
         border-radius: 5px;
         border: none;
         box-shadow: 0px 0px 2px 0px black;
@@ -59,7 +59,6 @@
         cursor: pointer;
     }
 }
-
 
 @media (max-width: 814px) {
     .main__wordsField {
