@@ -30,7 +30,8 @@ export class StartPage {
         ElemConstruct('h1', 'welcome__header', 'ENGLISH PUZZLE', welcomeElem);
         ElemConstruct('p', 'welcome__p1', 'Click on words, collect phrases.', welcomeElem);
         ElemConstruct('p', 'welcome__p2', 'Words can be drag and drop. Select tooltips in the menu', welcomeElem);
-        ElemConstruct('button', 'welcome__btn', 'Start', welcomeElem, [{ type: 'button' }]);
+        const btn = ElemConstruct('button', 'welcome__btn', 'Start', welcomeElem, [{ type: 'button' }]);
+        btn.addEventListener('click', this.removeWelcomeElem.bind(this));
 
         return welcomeElem;
     }

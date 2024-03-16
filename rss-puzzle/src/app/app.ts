@@ -1,23 +1,25 @@
+import { MainPage } from '../pages/mainPage/mainPage';
+import { StartPage } from '../pages/startPage/startPage';
+
 class App {
-    private routing: string;
+    private startPage: StartPage;
+    private mainPage: MainPage;
 
     constructor() {
-        this.routing = 'new Route';
+        this.startPage = new StartPage();
+        this.mainPage = new MainPage();
     }
 
     private render(): void {
-        const headerElem: HTMLElement = document.createElement('div');
-        headerElem.classList.add('header');
+        document.body.append(this.startPage.render());
+        document.body.append(this.mainPage.headerElem);
+        document.body.append(this.mainPage.mainElem);
 
-        const mainElem: HTMLElement = document.createElement('div');
-        mainElem.classList.add('main');
-        document.body.append(headerElem);
-        document.body.append(mainElem);
+        this.mainPage.render();
     }
 
     start(): void {
         this.render();
-        console.log(this.routing);
     }
 }
 
