@@ -20,8 +20,10 @@ export class GameField {
     private gameBodyBuild(parent: HTMLElement): void {
         this.puzzleField = ElemConstruct('div', 'main__puzzleField', undefined, parent);
         this.wordsField = ElemConstruct('div', 'main__wordsField', undefined, parent);
-        const continueBtn = ElemConstruct('button', 'main__continueBtn', 'Continue', parent);
-        continueBtn.addEventListener('click', () => this.checkAndContinue(parent));
+        const continueBtn = ElemConstruct('button', 'main__continueBtn', 'Check', parent, [
+            { type: 'button', disabled: '' },
+        ]);
+        continueBtn.addEventListener('click', (e) => this.checkAndContinue(e, parent));
 
         this.addNewWords(parent, 0, 0);
     }
@@ -36,7 +38,8 @@ export class GameField {
                     wordData?.mixedWordsArr!,
                     wordData?.sentenceLength!,
                     sentenceLines,
-                    this.wordsField!
+                    this.wordsField!,
+                    this.checkFillWords.bind(this)
                 );
                 this.wordTranslateElem.innerText = wordData?.translateSentence!;
                 parent.prepend(this.wordTranslateElem);
@@ -51,22 +54,35 @@ export class GameField {
         }
     }
 
-    private checkAndContinue(parent: HTMLElement): void {
-        const lines = document.querySelectorAll('.main__puzzleField_lines');
-        const wordLine = lines[lines.length - 1];
-        const wordCollection = wordLine.children;
+    public checkFillWords(checkingLine: HTMLElement): boolean {
+        const wordCollection = checkingLine.children;
+        let wrongCount = 0;
 
-        for (let i = 0; i < wordCollection.length; i += 1) {
-            const wordElem = wordCollection.item(i);
+        for (let i = 0; i < wordCollection!.length; i += 1) {
+            const wordElem = wordCollection!.item(i);
             const rightWord = this.wordData?.baseWordsArr[i];
 
             if (wordElem?.innerHTML !== rightWord) {
                 wordElem?.classList.add('wrong');
                 setTimeout(() => wordElem?.classList.remove('wrong'), 1000);
-                return;
+                wrongCount += 1;
             }
         }
-        this.addNewWords(parent);
+        if (wrongCount > 0) return false;
+        return true;
+    }
+
+    public checkAndContinue(e: Event, parent: HTMLElement): void {
+        const lines = document.querySelectorAll('.main__puzzleField_lines');
+        const wordLine = lines[lines.length - 1] as HTMLElement;
+        const btn = e.target as HTMLButtonElement;
+
+        if (btn.innerText === 'Continue') {
+            this.addNewWords(parent);
+            btn.innerText = 'Check';
+            btn.disabled = true;
+        }
+        if (btn.innerText === 'Check') this.checkFillWords(wordLine);
     }
 
     public render(parent: HTMLElement): void {
