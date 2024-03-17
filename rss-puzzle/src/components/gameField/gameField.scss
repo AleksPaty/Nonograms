@@ -23,6 +23,16 @@
                 background-color: aquamarine;
                 cursor: pointer;
 
+                &.first::after,
+                &.middle::after {
+                    box-shadow: inset -1px 0px 1px 0px red;
+                    background-color: aquamarine;
+                }
+                &.last::before,
+                &.middle::before {
+                    background-color: rgb(187, 174, 174);
+                }
+
                 &.wrong {
                     background-color: red;
                 }
@@ -44,6 +54,16 @@
             text-shadow: 1px 1px 2px pink;
             background-color: #b5cfc4;
             cursor: pointer;
+
+            &.first::after,
+            &.middle::after {
+                box-shadow: inset -1px 0px 1px 0px red;
+                background-color: #b5cfc4;
+            }
+            &.last::before,
+            &.middle::before {
+                background-color: white;
+            }
 
             &:hover {
                 box-shadow: 1px 1px 2px 0px red;
@@ -75,7 +95,40 @@
         }
     }
 }
+.word-puzzle {
+    position: relative;
 
+    &.first::after,
+    &.middle::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 14px;
+        height: 15px;
+        left: 98%;
+        top: 25%;
+        border-top-left-radius: 140px;
+        border-bottom-left-radius: 140px;
+        border-top-right-radius: 125px;
+        border-bottom-right-radius: 125px;
+        z-index: 2;
+    }
+    &.last::before,
+    &.middle::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 14px;
+        height: 15px;
+        left: 0%;
+        top: 25%;
+        border-top-left-radius: 125px;
+        border-bottom-left-radius: 125px;
+        border-top-right-radius: 140px;
+        border-bottom-right-radius: 140px;
+        z-index: 1;
+    }
+}
 
 @media (max-width: 814px) {
     .main__wordsField {

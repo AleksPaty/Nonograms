@@ -1,11 +1,13 @@
 import { ElemConstruct } from '../elemConstruct';
 
 export class WordView {
+    baseWords: string[] | null = null;
     wordTask: string[] | null = null;
     sentenceLength: number | null = null;
 
-    private setWordProps(wordsArr: string[], sentenceLength: number) {
-        this.wordTask = wordsArr;
+    private setWordProps(baseWords: string[], mixWordsArr: string[], sentenceLength: number) {
+        this.baseWords = baseWords;
+        this.wordTask = mixWordsArr;
         this.sentenceLength = sentenceLength;
     }
 
@@ -25,6 +27,11 @@ export class WordView {
             const elem = ElemConstruct('div', 'word-puzzle', `${word}`);
             const widthElem = (800 / this.sentenceLength!) * word.length;
             elem.style.width = `${Math.ceil(widthElem) - 25}px`;
+            if (this.baseWords && this.baseWords[0] === word) elem.classList.add('first');
+            if (this.baseWords && this.baseWords[this.baseWords.length - 1] === word) elem.classList.add('last');
+            if (this.baseWords && this.baseWords[0] !== word && this.baseWords[this.baseWords.length - 1] !== word) {
+                elem.classList.add('middle');
+            }
 
             elem.addEventListener('click', handler);
             fragment.append(elem);
@@ -63,13 +70,14 @@ export class WordView {
     }
 
     public render(
-        wordsArr: string[],
+        baseWordsArr: string[],
+        mixWordsArr: string[],
         sentenceLength: number,
         wordLine: HTMLElement,
         parent: HTMLElement,
         callBack: (checkingLine: HTMLElement) => boolean
     ) {
-        this.setWordProps(wordsArr, sentenceLength);
+        this.setWordProps(baseWordsArr, mixWordsArr, sentenceLength);
         const fragment = this.buildWordElems(wordLine, callBack);
         parent.append(fragment);
     }

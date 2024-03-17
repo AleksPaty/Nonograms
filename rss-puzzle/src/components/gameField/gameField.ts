@@ -63,6 +63,7 @@ export class GameField {
             .getRoundData(wordInd, roundInd)
             .then((wordData) => {
                 this.wordView.render(
+                    wordData?.baseWordsArr!,
                     wordData?.mixedWordsArr!,
                     wordData?.sentenceLength!,
                     sentenceLines,
