@@ -20,12 +20,40 @@ export class GameField {
     private gameBodyBuild(parent: HTMLElement): void {
         this.puzzleField = ElemConstruct('div', 'main__puzzleField', undefined, parent);
         this.wordsField = ElemConstruct('div', 'main__wordsField', undefined, parent);
-        const continueBtn = ElemConstruct('button', 'main__continueBtn', 'Check', parent, [
+        const btnsWrapper = ElemConstruct('div', 'main__btn-wrap', undefined, parent);
+        const autoFillBtn = ElemConstruct('button', 'main__autoFillBtn', 'Auto-Complete', btnsWrapper, [
+            { type: 'button' },
+        ]);
+        const continueBtn = ElemConstruct('button', 'main__continueBtn', 'Check', btnsWrapper, [
             { type: 'button', disabled: '' },
         ]);
+        autoFillBtn.addEventListener('click', this.autoFillHandle.bind(this));
         continueBtn.addEventListener('click', (e) => this.checkAndContinue(e, parent));
 
         this.addNewWords(parent, 0, 0);
+    }
+
+    private autoFillHandle(e: Event) {
+        const parentElem = this.puzzleField?.children[this.puzzleField?.children.length - 1] as HTMLElement;
+        const wordElems = parentElem.children;
+        const rightWordArr = this.wordData?.baseWordsArr;
+        const fillBtn = e.target as HTMLButtonElement;
+        const continueBtn = fillBtn.nextElementSibling as HTMLButtonElement;
+
+        for (let i = 0; i < rightWordArr!.length; i += 1) {
+            const wordElem = wordElems!.item(i) as HTMLElement | undefined;
+            const rightWord = rightWordArr![i];
+
+            if (wordElem) {
+                wordElem.removeAttribute('style');
+                wordElem.style.flexGrow = '1';
+            }
+            if (!wordElem) ElemConstruct('div', 'word-puzzle', `${rightWord}`, parentElem).style.flexGrow = '1';
+            if (wordElem && wordElem.innerText !== rightWord) wordElem.innerText = rightWord;
+        }
+        this.wordsField?.replaceChildren();
+        continueBtn.disabled = false;
+        continueBtn.innerText = 'Continue';
     }
 
     private addNewWords(parent: HTMLElement, wordInd = this.wordIndex, roundInd = this.roundIndex): void {

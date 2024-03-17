@@ -20,7 +20,6 @@ export class WordView {
         this.wordTask?.forEach((word, i) => {
             if (parentElem.previousElementSibling) {
                 const prevWord = parentElem.previousElementSibling.children[i];
-                console.log(prevWord);
                 prevWord.removeEventListener('click', handler);
             }
             const elem = ElemConstruct('div', 'word-puzzle', `${word}`);
@@ -43,9 +42,9 @@ export class WordView {
         const elem = e.target as HTMLElement;
         const cloneElem = elem.cloneNode(true) as HTMLElement;
         const parent = elem.parentElement;
-        const checkBtn = parent?.nextElementSibling as HTMLButtonElement;
+        const checkBtn = parent?.nextElementSibling?.children[1] as HTMLButtonElement;
         const handler = (e: Event) => {
-            this.replaceWordHandler(e, parentElem, callBack);
+            this.replaceWordHandler(e, parent!, callBack);
         };
 
         cloneElem.style.width = `${elem.offsetWidth - 20}px`;

@@ -41,8 +41,8 @@
             padding: 7px 10px;
             text-align: center;
             box-shadow: inset 0px 1px 1px 0px red;
-            text-shadow:  1px 1px 2px pink;
-            background-color: #B5CFC4;
+            text-shadow: 1px 1px 2px pink;
+            background-color: #b5cfc4;
             cursor: pointer;
 
             &:hover {
@@ -51,11 +51,18 @@
         }
     }
 
-    &__continueBtn {
-        display: block;
+    &__btn-wrap {
         margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+    }
+
+    &__continueBtn,
+    &__autoFillBtn {
+        display: block;
         padding: 6px 10px;
-        background: #F77342;
+        background: #f77342;
         border-radius: 5px;
         border: none;
         box-shadow: 0px 0px 2px 0px black;
@@ -63,7 +70,7 @@
         cursor: pointer;
 
         &:disabled {
-            background: #EEB09A;
+            background: #eeb09a;
             cursor: auto;
         }
     }
