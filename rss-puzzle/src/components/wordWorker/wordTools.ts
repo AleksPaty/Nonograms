@@ -43,8 +43,8 @@ export class WordTools {
                 translateSentence: this.currentRound.words[wordIndex].textExampleTranslate,
             };
             return roundData;
-        } else {
-            console.log('currentRound not find');
         }
+        console.log('currentRound not find');
+        return undefined;
     }
 }

@@ -50,8 +50,8 @@ export class WordView {
         const cloneElem = elem.cloneNode(true) as HTMLElement;
         const parent = elem.parentElement;
         const checkBtn = parent?.nextElementSibling?.children[1] as HTMLButtonElement;
-        const handler = (e: Event) => {
-            this.replaceWordHandler(e, parent!, callBack);
+        const handler = (event: Event) => {
+            this.replaceWordHandler(event, parent!, callBack);
         };
 
         cloneElem.style.width = `${elem.offsetWidth - 20}px`;
@@ -62,10 +62,10 @@ export class WordView {
 
         if (parent?.classList.contains('main__wordsField') && parent?.children.length === 0) {
             checkBtn?.removeAttribute('disabled');
-            if (callBack(parentElem)) checkBtn!.innerText = 'Continue';
-            if (!callBack(parentElem) && checkBtn!.innerText === 'Continue') checkBtn!.innerText = 'Check';
+            if (callBack(parentElem) && checkBtn) checkBtn.innerText = 'Continue';
+            if (!callBack(parentElem) && checkBtn.innerText === 'Continue') checkBtn.innerText = 'Check';
         } else if (btn && btn.previousElementSibling !== parent && parent?.children.length !== this.sentenceLength) {
-            if (btn.innerText === 'Continue') btn.innerText = 'Check';
+            if (btn.innerText === 'Continue') btn.innerText = 'Check'; // eslint-disable-line
         }
     }
 

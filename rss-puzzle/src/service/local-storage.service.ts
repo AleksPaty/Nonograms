@@ -1,7 +1,7 @@
 import { UserStorage } from '../types/usedInterface';
 
 export class StorageService {
-    public storageKey: string = 'user';
+    public storageKey = 'user';
 
     constructor(storageKey: string | undefined = undefined) {
         if (storageKey) this.storageKey = storageKey;
@@ -13,7 +13,7 @@ export class StorageService {
 
     public getData(): UserStorage | null {
         const data = localStorage.getItem(this.storageKey);
-        const result: UserStorage | null = data ? JSON.parse(data) : null;
+        const result: UserStorage | null = data ? JSON.parse(data) : null; // eslint-disable-line
 
         return result;
     }
