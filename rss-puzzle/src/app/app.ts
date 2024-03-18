@@ -1,21 +1,14 @@
-import { MainPage } from '../pages/mainPage/mainPage';
-import { StartPage } from '../pages/startPage/startPage';
+import { Route } from '../components/route/route';
 
 class App {
-    private startPage: StartPage;
-    private mainPage: MainPage;
+    private route: Route;
 
     constructor() {
-        this.startPage = new StartPage();
-        this.mainPage = new MainPage();
+        this.route = new Route();
     }
 
     private render(): void {
-        document.body.append(this.startPage.render());
-        document.body.append(this.mainPage.headerElem);
-        document.body.append(this.mainPage.mainElem);
-
-        this.mainPage.render();
+        this.route.render();
     }
 
     start(): void {

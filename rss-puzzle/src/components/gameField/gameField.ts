@@ -30,6 +30,8 @@ export class GameField {
         autoFillBtn.addEventListener('click', this.autoFillHandle.bind(this));
         continueBtn.addEventListener('click', (e) => this.checkAndContinue(e, parent));
 
+        if (this.wordIndex > 0) this.wordIndex = 0;
+        if (this.roundIndex > 0) this.roundIndex = 0;
         this.addNewWords(parent, 0, 0);
     }
 
@@ -48,7 +50,13 @@ export class GameField {
                 wordElem.removeAttribute('style');
                 wordElem.style.flexGrow = '1';
             }
-            if (!wordElem) ElemConstruct('div', 'word-puzzle', `${rightWord}`, parentElem).style.flexGrow = '1';
+            if (!wordElem) {
+                const elem = ElemConstruct('div', 'word-puzzle', `${rightWord}`, parentElem);
+                elem.style.flexGrow = '1';
+                if (i === 0) elem.classList.add('first');
+                if (i === rightWordArr!.length - 1) elem.classList.add('last');
+                if (0 < i && i < rightWordArr!.length - 1) elem.classList.add('middle');
+            }
             if (wordElem && wordElem.innerText !== rightWord) wordElem.innerText = rightWord;
         }
         this.wordsField?.replaceChildren();
@@ -105,7 +113,7 @@ export class GameField {
         const lines = document.querySelectorAll('.main__puzzleField_lines');
         const wordLine = lines[lines.length - 1] as HTMLElement;
         const btn = e.target as HTMLButtonElement;
-
+        console.log(this.wordIndex);
         if (btn.innerText === 'Continue') {
             this.addNewWords(parent);
             btn.innerText = 'Check';

@@ -22,7 +22,7 @@ export class WordView {
         this.wordTask?.forEach((word, i) => {
             if (parentElem.previousElementSibling) {
                 const prevWord = parentElem.previousElementSibling.children[i];
-                prevWord.removeEventListener('click', handler);
+                if (prevWord) prevWord.removeEventListener('click', handler);
             }
             const elem = ElemConstruct('div', 'word-puzzle', `${word}`);
             const widthElem = (800 / this.sentenceLength!) * word.length;

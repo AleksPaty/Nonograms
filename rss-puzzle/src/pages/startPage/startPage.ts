@@ -1,6 +1,6 @@
 import { ElemConstruct } from '../../components/elemConstruct';
 import { LoginForm } from '../../components/form/loginForms';
-import { StorageService } from '../../components/local-storage.service';
+import { StorageService } from '../../service/local-storage.service';
 import { UserStorage } from '../../types/usedInterface';
 import bgImage from '../../assets/img/bgImage.png';
 
@@ -9,12 +9,14 @@ export class StartPage {
     storageService: StorageService;
     loginForm: LoginForm;
     descriptionWrap: HTMLElement;
+    goMainPageBtn: HTMLElement;
 
     constructor() {
         this.startElem = ElemConstruct('div', 'start-page');
         this.storageService = new StorageService();
         this.loginForm = new LoginForm(['text', 'text'], 1);
         this.descriptionWrap = ElemConstruct('div', 'description__wrapper');
+        this.goMainPageBtn = ElemConstruct('button', 'welcome__btn', 'Start', undefined, [{ type: 'button' }]);
     }
 
     private buildStartImg(): void {
@@ -26,12 +28,13 @@ export class StartPage {
     }
 
     private buildWelcomeElem(): HTMLElement {
+        const user = this.storageService.getData();
         const welcomeElem = ElemConstruct('div', 'welcome');
         ElemConstruct('h1', 'welcome__header', 'ENGLISH PUZZLE', welcomeElem);
+        ElemConstruct('p', 'welcome__p1', `Welcome ${user?.firstName} ${user?.surname}.`, welcomeElem);
         ElemConstruct('p', 'welcome__p1', 'Click on words, collect phrases.', welcomeElem);
         ElemConstruct('p', 'welcome__p2', 'Words can be drag and drop. Select tooltips in the menu', welcomeElem);
-        const btn = ElemConstruct('button', 'welcome__btn', 'Start', welcomeElem, [{ type: 'button' }]);
-        btn.addEventListener('click', this.removeWelcomeElem.bind(this));
+        welcomeElem.append(this.goMainPageBtn);
 
         return welcomeElem;
     }
@@ -42,6 +45,7 @@ export class StartPage {
     }
 
     private chooseRenderElem(): void {
+        this.startElem.classList.remove('empty');
         if (!this.storageService.getData()) {
             this.loginForm.render(this.startElem, this.redirectToWelcomePage.bind(this));
         } else {
